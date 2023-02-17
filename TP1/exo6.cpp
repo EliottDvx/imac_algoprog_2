@@ -9,7 +9,7 @@ struct Noeud{
 
 struct Liste{
     Noeud* premier;
-    // your code
+    Noeud* dernier;
 };
 
 struct DynaTableau{
@@ -20,12 +20,13 @@ struct DynaTableau{
 
 void initialise(Liste* liste)
 {
-
+    liste->premier = nullptr;
+    liste->dernier = nullptr;
 }
 
 bool est_vide(const Liste* liste)
 {
-    return false;
+    return (liste->premier == nullptr);
 }
 
 void ajoute(Liste* liste, int valeur)
