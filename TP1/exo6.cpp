@@ -9,19 +9,18 @@ struct Noeud{
 
 struct Liste{
     Noeud* premier;
-    Noeud* dernier;
 };
 
 struct DynaTableau{
     int* donnees;
-    // your code
+    int maxSize;
+    int size;
 };
 
 
 void initialise(Liste* liste)
 {
     liste->premier = nullptr;
-    liste->dernier = nullptr;
 }
 
 bool est_vide(const Liste* liste)
@@ -31,12 +30,28 @@ bool est_vide(const Liste* liste)
 
 void ajoute(Liste* liste, int valeur)
 {
+    Noeud* newNoeud = new Noeud;
+    newNoeud->donnee = valeur;
 
+    if(liste->premier == nullptr){
+        liste->premier = newNoeud;
+    }
+    else{
+        Noeud* tmpNoeud = liste->premier;
+        while(tmpNoeud->suivant != nullptr){
+            tmpNoeud = tmpNoeud->suivant;
+        }
+        tmpNoeud->suivant = newNoeud;
+    }
 }
 
 void affiche(const Liste* liste)
 {
-
+    Noeud* tmpNoeud = liste->premier;
+    while (tmpNoeud != nullptr) {
+        cout << tmpNoeud -> donnee << "\n";
+        tmpNoeud = tmpNoeud -> suivant;
+    }
 }
 
 int recupere(const Liste* liste, int n)
