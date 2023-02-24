@@ -8,7 +8,19 @@ MainWindow* w=nullptr;
 void insertionSort(Array& toSort){
 	Array& sorted=w->newArray(toSort.size());
 
-	// insertion sort from toSort to sorted
+    sorted[0] = toSort[0];
+
+    int min = 0;
+    for(uint i=1; i < toSort.size(); i++){
+        min = i;
+        for(uint j=0; j < sorted.size(); j++){
+            if(sorted[j] > toSort[i]){
+                min = j;
+                break;
+            }
+        }
+        sorted.insert(min, toSort[i]);
+    }
 	
 	toSort=sorted; // update the original array
 }
