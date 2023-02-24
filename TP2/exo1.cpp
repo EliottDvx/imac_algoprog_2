@@ -6,7 +6,16 @@
 MainWindow* w = nullptr;
 
 void selectionSort(Array& toSort){
-	// selectionSort
+    int min = 0;
+    for(uint i=0; i < toSort.size(); i++){
+        min = i;
+        for(uint j=i; j < toSort.size(); j++){
+            if(toSort[min] > toSort[j]){
+                min = j;
+            }
+        }
+        toSort.swap(i, min);
+    }
 }
 
 int main(int argc, char *argv[])
