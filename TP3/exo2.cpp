@@ -12,10 +12,69 @@ using std::size_t;
  * @param indexMin first index of the value to find
  * @param indexMax last index of the value to find
  */
+
+int binarySearchMin(Array& array, int toSearch){
+    int n = array.size();
+    uint start = 0;
+    uint end = n;
+    uint mid;
+
+    while(start < end){
+        mid = (start+end)/2;
+
+        if(toSearch > array[mid]){
+            start = mid+1;
+        }
+        else if(toSearch < array[mid]){
+            end = mid;
+        }
+        else{
+            while(toSearch == array[mid-1]){
+                mid--;
+            }
+
+            return mid;
+            break;
+        }
+    }
+
+    return 0;
+}
+
+int binarySearchMax(Array& array, int toSearch){
+    int n = array.size();
+    uint start = 0;
+    uint end = n;
+    uint mid;
+
+    while(start < end){
+        mid = (start+end)/2;
+
+        if(toSearch > array[mid]){
+            start = mid+1;
+        }
+        else if(toSearch < array[mid]){
+            end = mid;
+        }
+        else{
+            while(toSearch == array[mid+1]){
+                mid++;
+            }
+
+            return mid;
+            break;
+        }
+    }
+
+    return 0;
+}
+
 void binarySearchAll(Array& array, int toSearch, int& indexMin, int& indexMax)
 {
-	// do not use increments, use two different binary search loop
     indexMin = indexMax = -1;
+
+    indexMin = binarySearchMin(array, toSearch);
+    indexMax = binarySearchMax(array, toSearch);
 }
 
 int main(int argc, char *argv[])
