@@ -16,17 +16,48 @@ struct SearchTreeNode : public Node
 
     void initNode(int value)
     {
-        // init initial node without children
+        this->value = value;
+        this->left = nullptr;
+        this->right = nullptr;
     }
 
 	void insertNumber(int value) {
-        // create a new node and insert it in right or left child
+        if(value < this->value){
+            if(this->left == nullptr){
+                this->left = new SearchTreeNode(value);
+            }
+            else{
+                this->left->insertNumber(value);
+            }
+        }
+        else{
+            if(this->right == nullptr){
+                this->right = new SearchTreeNode(value);
+            }
+            else{
+                this->right->insertNumber(value);
+            }
+        }
     }
 
-	uint height() const	{
-        // should return the maximum height between left child and
-        // right child +1 for itself. If there is no child, return
-        // just 1
+    uint height() const	{
+        if(this->left != nullptr && this->right != nullptr){
+            if(this->left->height() > this->right->height()){
+                return (this->left->height() + 1);
+            }
+            else{
+                return (this->right->height() + 1);
+            }
+        }
+        else{
+            if(this->left != nullptr){
+                return (this->left->height() + 1);
+            }
+            else if(this->right != nullptr){
+                return (this->right->height() + 1);
+            }
+        }
+
         return 1;
     }
 
