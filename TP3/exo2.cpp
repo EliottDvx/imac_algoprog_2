@@ -13,11 +13,11 @@ using std::size_t;
  * @param indexMax last index of the value to find
  */
 
-int binarySearchMin(Array& array, int toSearch){
+int binarySearchMin(Array& array, int toSearch, uint start = 0){
     int n = array.size();
-    uint start = 0;
     uint end = n;
     uint mid;
+    int indexMin = -1;
 
     while(start < end){
         mid = (start+end)/2;
@@ -29,23 +29,19 @@ int binarySearchMin(Array& array, int toSearch){
             end = mid;
         }
         else{
-            while(toSearch == array[mid-1]){
-                mid--;
-            }
-
-            return mid;
-            break;
+            indexMin = mid;
+            end = mid;
         }
     }
 
-    return 0;
+    return indexMin;
 }
 
-int binarySearchMax(Array& array, int toSearch){
+int binarySearchMax(Array& array, int toSearch, uint start = 0){
     int n = array.size();
-    uint start = 0;
     uint end = n;
     uint mid;
+    int indexMax = -1;
 
     while(start < end){
         mid = (start+end)/2;
@@ -57,16 +53,12 @@ int binarySearchMax(Array& array, int toSearch){
             end = mid;
         }
         else{
-            while(toSearch == array[mid+1]){
-                mid++;
-            }
-
-            return mid;
-            break;
+            indexMax = mid;
+            start = mid + 1;
         }
     }
 
-    return 0;
+    return indexMax;
 }
 
 void binarySearchAll(Array& array, int toSearch, int& indexMin, int& indexMax)
@@ -74,7 +66,7 @@ void binarySearchAll(Array& array, int toSearch, int& indexMin, int& indexMax)
     indexMin = indexMax = -1;
 
     indexMin = binarySearchMin(array, toSearch);
-    indexMax = binarySearchMax(array, toSearch);
+    indexMax = binarySearchMax(array, toSearch, indexMin);
 }
 
 int main(int argc, char *argv[])
