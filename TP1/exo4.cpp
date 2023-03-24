@@ -8,8 +8,16 @@ void allEvens(Array& evens, Array& array, int evenSize, int arraySize)
 {
     Context _("allEvens", evenSize, arraySize); // do not care about this, it allow the display of call stack
 
-    // your code
+    arraySize --;
 
+    if(array[arraySize]%2 == 0){
+        evens[evenSize] = array[arraySize];
+        evenSize+=1;
+    }
+
+    if(arraySize > 0){
+        allEvens(evens, array, evenSize, arraySize);
+    }
     return;
 }
 
