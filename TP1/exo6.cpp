@@ -18,6 +18,7 @@ struct DynaTableau{
 };
 
 
+// --- LISTE ---
 void initialise(Liste* liste)
 {
     liste->premier = nullptr;
@@ -56,53 +57,104 @@ void affiche(const Liste* liste)
 
 int recupere(const Liste* liste, int n)
 {
-    return 0;
+    Noeud* tmpNoeud = liste->premier;
+    for(int i=0; i < n; i++){
+        if(tmpNoeud == nullptr){
+            return -1;
+        }
+        tmpNoeud = tmpNoeud->suivant;
+    }
+
+    return tmpNoeud->donnee;
 }
 
 int cherche(const Liste* liste, int valeur)
 {
+    Noeud* tmpNoeud = liste->premier;
+    int result = 0;
+    while (tmpNoeud != nullptr) {
+        if(tmpNoeud->donnee == valeur){
+            return result;
+        }
+        tmpNoeud = tmpNoeud -> suivant;
+        result ++;
+    }
+
     return -1;
 }
 
 void stocke(Liste* liste, int n, int valeur)
 {
-
+    Noeud* tmpNoeud = liste->premier;
+    for(int i=0; i < n; i++){
+        if(tmpNoeud == nullptr){
+            return;
+        }
+        tmpNoeud = tmpNoeud->suivant;
+    }
+    tmpNoeud->donnee = valeur;
 }
 
+
+// --- TABLEAU ---
 void ajoute(DynaTableau* tableau, int valeur)
 {
+    if(tableau->size >= tableau->maxSize){
+        tableau->maxSize *= 2;
 
+        int* newDonnees = new int[tableau->maxSize];
+        for(int i=0; i<tableau->size; i++){
+            newDonnees[i] = tableau->donnees[i];
+        }
+        delete[] tableau->donnees;
+        tableau->donnees = newDonnees;
+    }
+    tableau->donnees[tableau->size] = valeur;
+    tableau->size ++;
 }
-
 
 void initialise(DynaTableau* tableau, int capacite)
 {
-
+    tableau->maxSize = capacite;
+    tableau->size = 0;
+    tableau->donnees = new int[capacite];
 }
 
 bool est_vide(const DynaTableau* liste)
 {
-    return false;
+    return (liste->size == 0);
 }
 
 void affiche(const DynaTableau* tableau)
 {
-
+    for(int i = 0; i < tableau->size; i++){
+        cout << tableau->donnees[i] << endl;
+    }
 }
 
 int recupere(const DynaTableau* tableau, int n)
 {
-    return 0;
+    if(tableau->size > n){
+        return tableau->donnees[n];
+    }
+    return -1;
 }
 
 int cherche(const DynaTableau* tableau, int valeur)
 {
+    for(int i=0; i<tableau->size; i++){
+        if(tableau->donnees[i] == valeur){
+            return i;
+        }
+    }
     return -1;
 }
 
 void stocke(DynaTableau* tableau, int n, int valeur)
 {
-
+    if(tableau->size >= n){
+        tableau->donnees[n] = valeur;
+    }
 }
 
 //void pousse_file(DynaTableau* liste, int valeur)
